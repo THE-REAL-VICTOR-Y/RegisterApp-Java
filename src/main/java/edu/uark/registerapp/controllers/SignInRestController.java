@@ -12,20 +12,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.uark.registerapp.models.api.ApiResponse;
 import edu.uark.registerapp.models.api.Product;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/api")
-public class SignInRestController {
+public class SignInRestController extends BaseRestController {
 	@RequestMapping(value = "/signOut", method = RequestMethod.DELETE)
-	public @ResponseBody ApiResponse deleteUser(
-		@RequestBody final Product product
+	public @ResponseBody ApiResponse removeActiveUser(
+		final HttpServletRequest request
     ) 
     {
-        
-			.setApiProduct(product)
+        this.activeUserDeleteCommand
+			.setSessionKey(request.getSession().getId())
             .execute();
             
-        return ()
+		return (new ApiResponse())
+			.setRedirectUrl(ViewNames.SIGN_IN.getRoute());
 
 	}
 
@@ -35,7 +37,7 @@ public class SignInRestController {
 
 	// Properties
 	@Autowired
-	private UserDeleteCommand UserDeleteCommand;
+	private ActiveUserDeleteCommand activeUserDeleteCommand;
 	
 	;
 }
