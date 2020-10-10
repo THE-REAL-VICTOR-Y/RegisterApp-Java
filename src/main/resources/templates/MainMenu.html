@@ -1,26 +1,32 @@
-<html xmlns:th="https://www.thymeleaf.org"></html>
+<html xmlns:th="https://www.thymeleaf.org">
 
 <head>
-    <Title> MAIN MENU </Title>
+	<title>MAIN MENU</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 
+	<link rel="stylesheet" type="text/css" href="/styles/master.css">
+   <!--- <link rel="stylesheet" type="text/css" href="/styles/productListing.css"> --->
+
+	<script type="text/javascript" src="/scripts/master.js" defer></script>
+	<script type="text/javascript" src="/scripts/MainMenu.js" defer></script>
 </head>
 
 <h1> MAIN MENU </h1>
 
 <body>
-    <button type="button">Start Transaction</button>
+    <button id="start_transaction" type="button">Start Transaction</button>
     <br><br>
-    <button type="button">View Products</button>
+    <button id="view_products" type="button">View Products</button>
     <br><br>
-    <button type="button">Create Employee</button>
+    <button id="create_employee" type="button">Create Employee</button>
     <br><br>
-    <button type="button">Sales Report</button>
+    <button id="sales_report" type="button">Sales Report</button>
     <br><br>
-    <button type="button">Cashier Report</button>
+    <button id="cashier_report" type="button">Cashier Report</button>
     
     <br><br><br><br>
 
-    <button type="button"><img src="baseline_login_black_18dp.png" width=10%> </button>
+    <button id="sign_out" type="button"><img src="baseline_login_black_18dp.png" width=10%> Sign Out </button>
 </body>
 
 </html>
