@@ -1,4 +1,4 @@
-/*package edu.uark.registerapp.controllers;
+package edu.uark.registerapp.controllers;
 
 import java.util.UUID;
 
@@ -43,4 +43,4 @@ public class SignInRestController extends BaseRestController {
 	private ActiveUserDeleteCommand activeUserDeleteCommand;
 	
 	;
-}*/
+}
