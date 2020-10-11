@@ -11,8 +11,8 @@
     
             displayError("Please provide a valid employee ID.");
     
-           // employeeIdElement.focus();
-           // employeeIdElement.select();
+           employeeIdElement.focus();
+           employeeIdElement.select();
             
             return false;
         }
@@ -23,8 +23,8 @@
     
             displayError("Your password is blank, please provide a real password");
     
-           // passwordEditElement.focus();
-          //  passwordEditElement.select();
+           passwordEditElement.focus();
+           passwordEditElement.select();
             
             return false;
         }
