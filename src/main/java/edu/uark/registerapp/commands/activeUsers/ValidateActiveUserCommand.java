@@ -39,3 +39,4 @@ public class ValidateActiveUserCommand implements ResultCommandInterface<ActiveU
 	@Autowired
 	private ActiveUserRepository activeUserRepository;
 }
+
