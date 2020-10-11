@@ -32,6 +32,26 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 		// TODO: Logic to determine if the user associated with the current session
 		//  is able to create an employee
 
+
+		boolean activeUserExists = this.activeUserExists();
+
+		if(activeUserExists) //if user exits
+		{
+			//create optional instance to prevent nosuchelement exception
+			final Optional<ActiveUserEntity> activeUserEntity = this.getCurrentUser(request);
+
+				if(!this.isElevatedUser(activeUserEntity.get()))
+					{
+						return this.buildNoPermissionsResponse();
+					}
+				else if(!activeUserEntity.isPresent())
+				{
+					return this.buildInvalidSessionResponse();
+				}
+		}
+			
+
+
 		return new ModelAndView(ViewModelNames.EMPLOYEE_TYPES.getValue());
 	}
 
@@ -59,6 +79,15 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 	// Helper methods
 	private boolean activeUserExists() {
 		// TODO: Helper method to determine if any active users Exist
-		return true;
+		try
+		{
+			this.activeEmployeeExistsQuery.execute();
+			return true;
+		}
+		
+		catch(Exception e)
+		{
+			
+		}
 	}
 }
