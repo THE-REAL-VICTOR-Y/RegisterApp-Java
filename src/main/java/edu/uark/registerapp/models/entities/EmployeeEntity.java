@@ -28,6 +28,7 @@ public class EmployeeEntity {
 	public UUID getId() {
 		return this.id;
 	}
+<<<<<<< HEAD
 
 	@Column(name = "employeeid", insertable = false, updatable = false)
 	@Generated(GenerationTime.INSERT)
@@ -38,6 +39,10 @@ public class EmployeeEntity {
 	}
 
 	@Column(name = "firstname")
+=======
+    // First Name
+    @Column(name = "firstname")
+>>>>>>> master
 	private String firstName;
 
 	public String getFirstName() {
@@ -47,9 +52,15 @@ public class EmployeeEntity {
 	public EmployeeEntity setFirstName(final String firstName) {
 		this.firstName = firstName;
 		return this;
+<<<<<<< HEAD
 	}
 
 	@Column(name = "lastname")
+=======
+    }
+    //Last name
+    @Column(name = "lastname")
+>>>>>>> master
 	private String lastName;
 
 	public String getLastName() {
@@ -60,6 +71,7 @@ public class EmployeeEntity {
 		this.lastName = lastName;
 		return this;
 	}
+<<<<<<< HEAD
 
 	@Column(name = "password")
 	private byte[] password;
@@ -74,6 +86,18 @@ public class EmployeeEntity {
 	}
 
 	@Column(name = "active")
+=======
+    // Employee id
+    @Column(name = "employeeid", insertable = false, updatable = false)
+	@Generated(GenerationTime.INSERT)
+	private int employeeId;
+
+	public int getEmployeeId() {
+		return this.employeeId;
+	}
+    //Active
+    @Column(name = "active")
+>>>>>>> master
 	private boolean isActive;
 
 	public boolean getIsActive() {
@@ -84,8 +108,13 @@ public class EmployeeEntity {
 		this.isActive = isActive;
 		return this;
 	}
+<<<<<<< HEAD
 
 	@Column(name = "classification")
+=======
+    //Clasification
+    @Column(name = "classification")
+>>>>>>> master
 	private int classification;
 
 	public int getClassification() {
@@ -96,8 +125,13 @@ public class EmployeeEntity {
 		this.classification = classification;
 		return this;
 	}
+<<<<<<< HEAD
 
 	@Column(name = "managerid")
+=======
+    //Manager
+    @Column(name = "managerid")
+>>>>>>> master
 	private UUID managerId;
 
 	public UUID getManagerId() {
@@ -108,7 +142,23 @@ public class EmployeeEntity {
 		this.managerId = managerId;
 		return this;
 	}
+<<<<<<< HEAD
 
+=======
+    //password
+    @Column(name = "password")
+	private byte[] password;
+
+	public byte[] getPassword() {
+		return this.password;
+	}
+
+	public EmployeeEntity setPassword(final byte[] password) {
+		this.password = password;
+		return this;
+	}
+    //Created on
+>>>>>>> master
 	@Column(name = "createdon", insertable = false, updatable = false)
 	@Generated(GenerationTime.INSERT)
 	private LocalDateTime createdOn;
@@ -118,19 +168,31 @@ public class EmployeeEntity {
 	}
 
 	public Employee synchronize(final Employee apiEmployee) {
+<<<<<<< HEAD
 		this.setIsActive(apiEmployee.getIsActive());
 		this.setLastName(apiEmployee.getLastName());
 		this.setFirstName(apiEmployee.getFirstName());
 		this.setClassification(apiEmployee.getClassification());
 		if (apiEmployee.getManagerId() != null) {
+=======
+        this.setFirstName(apiEmployee.getFirstName());
+        this.setLastName(apiEmployee.getLastName());
+        this.setClassification(apiEmployee.getClassification());
+		this.setIsActive(apiEmployee.getIsActive());
+		/*if (apiEmployee.getManagerId() != null) {
+>>>>>>> master
 			this.setManagerId(apiEmployee.getManagerId());
 		}
 		if (!StringUtils.isBlank(apiEmployee.getPassword())) {
 			this.setPassword(
 				EmployeeHelper.hashPassword(
 					apiEmployee.getPassword()));
+<<<<<<< HEAD
 		}
 
+=======
+		}*/
+>>>>>>> master
 		apiEmployee.setId(this.getId());
 		apiEmployee.setCreatedOn(this.getCreatedOn());
 		apiEmployee.setEmployeeId(this.getEmployeeId());
@@ -155,6 +217,7 @@ public class EmployeeEntity {
 		this.lastName = apiEmployee.getLastName();
 		this.firstName = apiEmployee.getFirstName();
 		this.classification = apiEmployee.getClassification();
+<<<<<<< HEAD
 		this.password = EmployeeHelper.hashPassword(apiEmployee.getPassword());
 		this.managerId = (
 			(apiEmployee.getManagerId() != null)
@@ -162,3 +225,13 @@ public class EmployeeEntity {
 				: new UUID(0, 0));
 	}
 }
+=======
+		//this.password = EmployeeHelper.hashPassword(apiEmployee.getPassword());
+			if(apiEmployee.getManagerId() == null){
+				this.managerId=(new UUID(0, 0));
+			}else{
+				this.managerId=apiEmployee.getManagerId();
+			}
+	}
+}
+>>>>>>> master
