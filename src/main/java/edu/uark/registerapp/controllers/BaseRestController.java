@@ -86,8 +86,4 @@ public class BaseRestController extends BaseController {
 	// Properties
 	@Autowired
 	private ValidateActiveUserCommand validateActiveUserCommand;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> master

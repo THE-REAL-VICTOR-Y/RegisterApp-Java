@@ -114,8 +114,4 @@ public abstract class BaseRouteController extends BaseController {
 	// Properties
 	@Autowired
 	private ValidateActiveUserCommand validateActiveUserCommand;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> master

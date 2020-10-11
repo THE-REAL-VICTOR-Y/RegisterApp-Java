@@ -42,8 +42,4 @@ public enum QueryParameterMessages {
 		this.key = key;
 		this.message = message;
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> master
