@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+package edu.uark.registerapp.controllers;
+
+import javax.servlet.http.HttpServletRequest;
+
+=======
 /*package edu.uark.registerapp.controllers;
 
 import java.util.Map;
@@ -5,10 +11,16 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> master
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+<<<<<<< HEAD
+import org.springframework.web.servlet.ModelAndView;
+
+import edu.uark.registerapp.controllers.enums.ViewNames;
+=======
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,10 +31,24 @@ import edu.uark.registerapp.controllers.enums.QueryParameterNames;
 import edu.uark.registerapp.controllers.enums.ViewModelNames;
 import edu.uark.registerapp.controllers.enums.ViewNames;
 import edu.uark.registerapp.models.api.EmployeeSignIn;
+>>>>>>> master
 
 @Controller
 @RequestMapping(value = "/")
 public class SignInRouteController extends BaseRouteController {
+<<<<<<< HEAD
+	// TODO: Route for initial page load
+
+	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public ModelAndView performSignIn(
+		// TODO: Define an object that will represent the sign in request and add it as a parameter here
+		HttpServletRequest request
+	) {
+
+		// TODO: Use the credentials provided in the request body
+		//  and the "id" property of the (HttpServletRequest)request.getSession() variable
+		//  to sign in the user
+=======
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView showSignIn(
 		@RequestParam final Map<String, String> queryParameters
@@ -74,11 +100,15 @@ public class SignInRouteController extends BaseRouteController {
 
 			return modelAndView;
 		}
+>>>>>>> master
 
 		return new ModelAndView(
 			REDIRECT_PREPEND.concat(
 				ViewNames.MAIN_MENU.getRoute()));
 	}
+<<<<<<< HEAD
+}
+=======
 
 	// Properties
 	@Autowired
@@ -87,3 +117,4 @@ public class SignInRouteController extends BaseRouteController {
 	@Autowired
 	private ActiveEmployeeExistsQuery activeEmployeeExistsQuery;
 }*/
+>>>>>>> master
