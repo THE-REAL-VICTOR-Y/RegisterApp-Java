@@ -7,7 +7,7 @@ public enum ViewModelNames {
 	PRODUCTS("products"), // Product listing
 	PRODUCT("product"), // Product detail
 	EMPLOYEE_TYPES("employeeTypes"),
-	 EMPLOYEE_ID;
+	EMPLOYEE_ID("employeeID");
 	 
 	
 	public String getValue() {
