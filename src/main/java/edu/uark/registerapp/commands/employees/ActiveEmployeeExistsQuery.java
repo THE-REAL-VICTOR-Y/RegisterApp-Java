@@ -15,7 +15,6 @@ public class ActiveEmployeeExistsQuery implements VoidCommandInterface {
 			throw new NotFoundException("Employee");
 		}
 	}
-////////////////////////////////////////////////////////////////////
 	@Autowired
 	private EmployeeRepository employeeRepository;
 }
