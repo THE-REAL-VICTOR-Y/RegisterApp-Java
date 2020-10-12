@@ -57,45 +57,25 @@ public class EmployeeSignInCommand implements ResultCommandInterface<Employee> {
             throw new UnprocessableEntityException("Password");
         }
     }
-
 	@Transactional
 	private EmployeeEntity SignInEmployee() {
-		final Optional<EmployeeEntity> employeeEntity =
-			this.employeeRepository.findByEmployeeId(
-				Integer.parseInt(this.employeeSignIn.getEmployeeId()));
-
-		if (!employeeEntity.isPresent()
-			|| !Arrays.equals(
-				employeeEntity.get().getPassword(),
-				EmployeeHelper.hashPassword(this.employeeSignIn.getPassword()))
-		) {
-
+		final Optional<EmployeeEntity> employeeEntity = this.employeeRepository.findByEmployeeId(Integer.parseInt(this.employeeSignIn.getEmployeeId()));
+		if (!employeeEntity.isPresent()|| !Arrays.equals(employeeEntity.get().getPassword(),EmployeeHelper.hashPassword(this.employeeSignIn.getPassword()))) {
 			throw new UnauthorizedException();
 		}
-
-		final Optional<ActiveUserEntity> activeUserEntity =
-			this.activeUserRepository
-				.findByEmployeeId(employeeEntity.get().getId());
-
+		final Optional<ActiveUserEntity> activeUserEntity =this.activeUserRepository.findByEmployeeId(employeeEntity.get().getId());
 		if (!activeUserEntity.isPresent()) {
 			this.activeUserRepository.save(
 					(new ActiveUserEntity())
 						.setSessionKey(this.sessionId)
 						.setEmployeeId(employeeEntity.get().getId())
-						.setClassification(
-							employeeEntity.get().getClassification())
-						.setName(
-							employeeEntity.get().getFirstName()
-								.concat(" ")
-								.concat(employeeEntity.get().getLastName())));
+						.setClassification(employeeEntity.get().getClassification())
+						.setName(employeeEntity.get().getFirstName().concat(" ").concat(employeeEntity.get().getLastName())));
 		} else {
-			this.activeUserRepository.save(
-				activeUserEntity.get().setSessionKey(this.sessionId));
+			this.activeUserRepository.save(activeUserEntity.get().setSessionKey(this.sessionId));
 		}
-
 		return employeeEntity.get();
 	}
-
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	@Autowired
