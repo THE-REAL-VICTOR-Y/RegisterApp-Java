@@ -33,7 +33,7 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 		//  is able to create an employee
 
 
-		//boolean activeUserExists = this.activeUserExists();
+		boolean activeUserExists = this.activeUserExists();
 
 		if(activeUserExists) //if user exits
 		{
@@ -77,11 +77,11 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 	}
 
 	// Helper methods
-	/*private boolean activeUserExists() {
+	private boolean activeUserExists() {
 		// TODO: Helper method to determine if any active users Exist
 		try
 		{
-			//this.activeEmployeeExistsQuery.execute();
+			this.activeEmployeeExistsQuery.execute();
 			return true;
 		}
 		
@@ -89,5 +89,5 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 		{
 			
 		}
-	}*/
+	}
 }
