@@ -24,7 +24,7 @@ import edu.uark.registerapp.models.repositories.EmployeeRepository;
 public class EmployeeSignInCommand implements ResultCommandInterface<Employee> {
 	@Override
 	public Employee execute() {
-        //this.validation();
+        this.validation();
         
 		return new Employee(this.SignInEmployee());
     }
@@ -49,14 +49,14 @@ public class EmployeeSignInCommand implements ResultCommandInterface<Employee> {
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Helper methods
-    /*private void validation(){
+    private void validation(){
         if((this.employeeSignIn.getEmployeeId().isBlank())||(StringUtils.isNumeric(this.employeeSignIn.getEmployeeId()))){
             throw new UnprocessableEntityException("Employee ID");
         }
         if(this.employeeSignIn.getPassword().isBlank()){
             throw new UnprocessableEntityException("Password");
         }
-    }*/
+    }
 	@Transactional
 	private EmployeeEntity SignInEmployee() {
 		final Optional<EmployeeEntity> employeeEntity = this.employeeRepository.findByEmployeeId(Integer.parseInt(this.employeeSignIn.getEmployeeId()));
