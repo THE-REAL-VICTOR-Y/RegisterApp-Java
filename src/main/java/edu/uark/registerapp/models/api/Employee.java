@@ -33,18 +33,17 @@ public class Employee extends ApiResponse {
 	}
 
 	public String getEmployeeId() {
-		return this.employeeId;
+		return this.employeeID;
 	}
-	public Employee setEmployeeId(final int employeeId) {
-		this.employeeId = EmployeeHelper.padEmployeeId(employeeId);
+	public Employee setEmployeeId(final int employeeID) {
+		this.employeeID = EmployeeHelper.padEmployeeId(employeeID);
 		return this;
 	}
-	public Employee setEmployeeId(final String employeeId) {
-		this.employeeId = employeeId;
+	public Employee setEmployeeId(final String employeeID) {
+		this.employeeID = employeeID;
 		return this;
 	}
 
-	private String firstName;
 	public String getFirstName() {
 		return this.firstName;
 	}
@@ -53,7 +52,6 @@ public class Employee extends ApiResponse {
 		return this;
 	}
 
-	private String lastName;
 	public String getLastName() {
 		return this.lastName;
 	}
@@ -62,7 +60,6 @@ public class Employee extends ApiResponse {
 		return this;
 	}
 
-	private String password;
 	public String getPassword() {
 		return this.password;
 	}
@@ -71,7 +68,6 @@ public class Employee extends ApiResponse {
 		return this;
 	}
 
-	private boolean isActive;
 	public boolean getIsActive() {
 		return this.isActive;
 	}
@@ -80,7 +76,6 @@ public class Employee extends ApiResponse {
 		return this;
 	}
 
-	private int classification;
 	public int getClassification() {
 		return this.classification;
 	}
@@ -89,16 +84,14 @@ public class Employee extends ApiResponse {
 		return this;
 	}
 
-	private UUID managerId;
 	public UUID getManagerId() {
-		return this.managerId;
+		return this.managerID;
 	}
-	public Employee setManagerId(final UUID managerId) {
-		this.managerId = managerId;
+	public Employee setManagerId(final UUID managerID) {
+		this.managerID = managerID;
 		return this;
 	}
 
-	private String createdOn;
 	public String getCreatedOn() {
 		return this.createdOn;
 	}
@@ -113,7 +106,6 @@ public class Employee extends ApiResponse {
 		return this;
 	}
 
-	private boolean isInitialEmployee;
 	public boolean getIsInitialEmployee() {
 		return this.isInitialEmployee;
 	}
@@ -129,11 +121,11 @@ public class Employee extends ApiResponse {
 		this.id = new UUID(0, 0);
 		this.classification = -1;
 		this.isInitialEmployee = false;
-		this.managerId = new UUID(0, 0);
+		this.managerID = new UUID(0, 0);
 		this.lastName = StringUtils.EMPTY;
 		this.password = StringUtils.EMPTY;
 		this.firstName = StringUtils.EMPTY;
-		this.employeeId = StringUtils.EMPTY;
+		this.employeeID = StringUtils.EMPTY;
 
 		this.setCreatedOn(LocalDateTime.now());
 	}
@@ -147,9 +139,9 @@ public class Employee extends ApiResponse {
 		this.isActive = employeeEntity.getIsActive();
 		this.lastName = employeeEntity.getLastName();
 		this.firstName = employeeEntity.getFirstName();
-		this.managerId = employeeEntity.getManagerId();
+		this.managerID = employeeEntity.getManagerId();
 		this.classification = employeeEntity.getClassification();
-		this.employeeId =
+		this.employeeID =
 			EmployeeHelper.padEmployeeId(employeeEntity.getEmployeeId());
 
 		this.setCreatedOn(employeeEntity.getCreatedOn());
