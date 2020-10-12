@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import edu.uark.registerapp.commands.activeUsers.ValidateActiveUserCommand;
+import edu.uark.registerapp.commands.ActiveUsers.ValidateActiveUserCommand;
 import edu.uark.registerapp.commands.exceptions.ConflictException;
 import edu.uark.registerapp.commands.exceptions.NotFoundException;
 import edu.uark.registerapp.commands.exceptions.UnauthorizedException;

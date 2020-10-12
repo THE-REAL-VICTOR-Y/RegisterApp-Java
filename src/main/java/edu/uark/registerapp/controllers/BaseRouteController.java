@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.uark.registerapp.commands.activeUsers.ValidateActiveUserCommand;
+import edu.uark.registerapp.commands.ActiveUsers.ValidateActiveUserCommand;
 import edu.uark.registerapp.commands.exceptions.UnauthorizedException;
 import edu.uark.registerapp.controllers.enums.ViewModelNames;
 import edu.uark.registerapp.controllers.enums.QueryParameterMessages;
