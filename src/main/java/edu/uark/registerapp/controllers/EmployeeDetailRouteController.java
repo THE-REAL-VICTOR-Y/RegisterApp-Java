@@ -19,6 +19,7 @@ import edu.uark.registerapp.controllers.enums.ViewModelNames;
 import edu.uark.registerapp.controllers.enums.ViewNames;
 import edu.uark.registerapp.models.api.Employee;
 import edu.uark.registerapp.models.entities.ActiveUserEntity;
+import edu.uark.registerapp.commands.employees.ActiveEmployeeExistsQuery;
 
 @Controller
 @RequestMapping(value = "/employeeDetail")
@@ -89,5 +90,9 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 		{
 			
 		}
+		return false;
 	}
+
+	@Autowired
+	private ActiveEmployeeExistsQuery activeEmployeeExistsQuery;
 }
