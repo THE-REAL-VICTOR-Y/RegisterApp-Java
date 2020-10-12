@@ -47,13 +47,13 @@ public class MainMenuRouteController extends BaseRouteController {
 		
 		return modelAndView;
 	}
-	/*
+	
 	@GetMapping
 	("/redirectWithRedirectPrefix")
     public ModelAndView redirectWithUsingRedirectPrefix(ModelMap model) {
       model.addAttribute("attribute", "redirectWithRedirectPrefix");
         return new ModelAndView("redirect:/https://victor-y-app.herokuapp.com/signin", model);
 	 }
-	 */
+	 
 }
 
