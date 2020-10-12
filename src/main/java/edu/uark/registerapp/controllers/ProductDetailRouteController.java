@@ -14,8 +14,8 @@ import edu.uark.registerapp.commands.products.ProductQuery;
 import edu.uark.registerapp.controllers.enums.ViewModelNames;
 import edu.uark.registerapp.controllers.enums.ViewNames;
 import edu.uark.registerapp.models.api.Product;
-
-@Controller
+//
+@Controller 
 @RequestMapping(value = "/productDetail")
 public class ProductDetailRouteController {
 	@RequestMapping(method = RequestMethod.GET)
