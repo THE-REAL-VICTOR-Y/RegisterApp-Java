@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +31,9 @@ public class MainMenuRouteController extends BaseRouteController {
 		if (!activeUserEntity.isPresent()) {
 			return this.buildInvalidSessionResponse();
 		}
-		
+		else{
+
+		}
 		ModelAndView modelAndView =
 			this.setErrorMessageFromQueryString(
 				new ModelAndView(ViewNames.MAIN_MENU.getViewName()),
@@ -42,4 +46,10 @@ public class MainMenuRouteController extends BaseRouteController {
 		
 		return modelAndView;
 	}
+	@GetMapping("/redirectWithRedirectPrefix")
+    public ModelAndView redirectWithUsingRedirectPrefix(ModelMap model) {
+        model.addAttribute("attribute", "redirectWithRedirectPrefix");
+        return new ModelAndView("redirect:/https://victor-y-app.herokuapp.com/signin", model);
+    }
 }
+
