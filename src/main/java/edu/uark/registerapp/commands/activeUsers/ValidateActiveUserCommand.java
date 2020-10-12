@@ -1,4 +1,4 @@
-package edu.uark.registerapp.commands.ActiveUsers;
+package edu.uark.registerapp.commands.activeUsers;
 
 import java.util.Optional;
 

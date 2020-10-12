@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.uark.registerapp.commands.employees.ActiveEmployeeExistsQuery;
+import edu.uark.registerapp.commands.employees.EmployeeSignInCommand;
 import edu.uark.registerapp.controllers.enums.QueryParameterNames;
 import edu.uark.registerapp.controllers.enums.ViewModelNames;
 import edu.uark.registerapp.controllers.enums.ViewNames;
@@ -57,8 +58,8 @@ public class SignInRouteController extends BaseRouteController {
 		//  to sign in the user
 		try 
 		{
-			((Object) this.employeeSignInCommand.setSessionId(request.getSession().getId()))
-				.setEmployeeSignIn(eSignIn).execute();
+			((EmployeeSignInCommand) this.employeeSignInCommand.setSessionId(request.getSession().getId()))
+					.setEmployeeSignIn(eSignIn).execute();
 		}
 		 catch (Exception e) 
 		{
@@ -72,7 +73,7 @@ public class SignInRouteController extends BaseRouteController {
 		return new ModelAndView(REDIRECT_PREPEND.concat(ViewNames.MAIN_MENU.getRoute()));
 	}
 
-	@Autowired private EmployeeSignIn employeeSignInCommand;
+	@Autowired private EmployeeSignInCommand employeeSignInCommand;
 	@Autowired private ActiveEmployeeExistsQuery activeEmployeeExistsQuery;
 
 }

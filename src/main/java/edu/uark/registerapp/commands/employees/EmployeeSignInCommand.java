@@ -24,25 +24,39 @@ import edu.uark.registerapp.models.repositories.EmployeeRepository;
 public class EmployeeSignInCommand implements ResultCommandInterface<Employee> {
 	@Override
 	public Employee execute() {
-		this.validateProperties();
-
+        this.validation();
+        
 		return new Employee(this.SignInEmployee());
+    }
+    // Properties
+	private EmployeeSignIn employeeSignIn;
+	public EmployeeSignIn getEmployeeSignIn() {
+		return this.employeeSignIn;
+	}
+	public EmployeeSignInCommand setEmployeeSignIn(final EmployeeSignIn employeeSignIn) {
+		this.employeeSignIn = employeeSignIn;
+		return this;
 	}
 
-	// Helper methods
-	private void validateProperties() {
-		if (StringUtils.isBlank(this.employeeSignIn.getEmployeeId())) {
-			throw new UnprocessableEntityException("employee ID");
-		}
-		try {
-			Integer.parseInt(this.employeeSignIn.getEmployeeId());
-		} catch (final NumberFormatException e) {
-			throw new UnprocessableEntityException("employee ID");
-		}
-		if (StringUtils.isBlank(this.employeeSignIn.getPassword())) {
-			throw new UnprocessableEntityException("password");
-		}
+	private String sessionId;
+	public String getSessionId() {
+		return this.sessionId;
 	}
+	public EmployeeSignInCommand setSessionId(final String sessionId) {
+		this.sessionId = sessionId;
+		return this;
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Helper methods
+    private void validation(){
+        if((this.employeeSignIn.getEmployeeId().isBlank())||(StringUtils.isNumeric(this.employeeSignIn.getEmployeeId()))){
+            throw new UnprocessableEntityException("Employee ID");
+        }
+        if(this.employeeSignIn.getPassword().isBlank()){
+            throw new UnprocessableEntityException("Password");
+        }
+    }
 
 	@Transactional
 	private EmployeeEntity SignInEmployee() {
@@ -80,25 +94,6 @@ public class EmployeeSignInCommand implements ResultCommandInterface<Employee> {
 		}
 
 		return employeeEntity.get();
-	}
-
-	// Properties
-	private EmployeeSignIn employeeSignIn;
-	public EmployeeSignIn getEmployeeSignIn() {
-		return this.employeeSignIn;
-	}
-	public EmployeeSignInCommand setEmployeeSignIn(final EmployeeSignIn employeeSignIn) {
-		this.employeeSignIn = employeeSignIn;
-		return this;
-	}
-
-	private String sessionId;
-	public String getSessionId() {
-		return this.sessionId;
-	}
-	public EmployeeSignInCommand setSessionId(final String sessionId) {
-		this.sessionId = sessionId;
-		return this;
 	}
 
 	@Autowired
