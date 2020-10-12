@@ -10,7 +10,20 @@ import edu.uark.registerapp.commands.employees.helpers.EmployeeHelper;
 import edu.uark.registerapp.models.entities.EmployeeEntity;
 
 public class Employee extends ApiResponse {
-    private UUID id;
+	private UUID id;
+	private String employeeID;
+	private String firstName;
+	private String lastName;
+	private String password;
+	private boolean isActive;
+	private int classification;
+	private UUID managerID;
+	private String createdOn;
+	private boolean isInitialEmployee;
+
+
+
+
     public UUID getId() {
     	return this.id;
     }
@@ -19,7 +32,6 @@ public class Employee extends ApiResponse {
 		return this;
 	}
 
-	private String employeeId;
 	public String getEmployeeId() {
 		return this.employeeId;
 	}

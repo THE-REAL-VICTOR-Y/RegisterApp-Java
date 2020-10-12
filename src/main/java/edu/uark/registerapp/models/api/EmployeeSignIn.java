@@ -35,5 +35,9 @@ public class EmployeeSignIn
         this.ID = StringUtils.EMPTY;
     }
 
+	public Object setSessionId(String id2) {
+		return null;
+	}
+
 
 }

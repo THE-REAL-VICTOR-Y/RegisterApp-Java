@@ -4,10 +4,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.uark.registerapp.commands.employees.ActiveEmployeeExistsQuery;
@@ -21,7 +23,7 @@ import edu.uark.registerapp.models.api.EmployeeSignIn;
 public class SignInRouteController extends BaseRouteController {
 	// TODO: Route for initial page load
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView viewSignIn(@RequestParam Map< String, String> queryParameters)
+	public ModelAndView viewSignIn(@RequestParam final Map< String, String> queryParameters)
 	{
 		
 	try 
@@ -55,8 +57,8 @@ public class SignInRouteController extends BaseRouteController {
 		//  to sign in the user
 		try 
 		{
-			this.employeeSignInCommand.setSessionId(request.getSession().getId())
-				.setEmployeeSignIn(employeeSignIn).execute();
+			((Object) this.employeeSignInCommand.setSessionId(request.getSession().getId()))
+				.setEmployeeSignIn(eSignIn).execute();
 		}
 		 catch (Exception e) 
 		{
