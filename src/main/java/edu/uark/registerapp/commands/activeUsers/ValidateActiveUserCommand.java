@@ -12,30 +12,30 @@ import edu.uark.registerapp.models.repositories.ActiveUserRepository;
 
 @Service
 public class ValidateActiveUserCommand implements ResultCommandInterface<ActiveUserEntity> {
-    @Override
-    public ActiveUserEntity execute() {
-        final Optional<ActiveUserEntity> activeUserEntity =
-            this.activeUserRepository.findBySessionKey(this.sessionKey);
+	@Override
+	public ActiveUserEntity execute() {
+		final Optional<ActiveUserEntity> activeUserEntity =
+			this.activeUserRepository.findBySessionKey(this.sessionKey);
 
-        if (!activeUserEntity.isPresent()) {
-            throw new UnauthorizedException();
-        }
+		if (!activeUserEntity.isPresent()) {
+			throw new UnauthorizedException();
+		}
 
-        return activeUserEntity.get();
-    }
+		return activeUserEntity.get();
+	}
 
-    // Properties
-    private String sessionKey;
-    
-    public String getSessionKey() {
-        return this.sessionKey;
-    }
+	// Properties
+	private String sessionKey;
 
-    public ValidateActiveUserCommand setSessionKey(final String sessionKey) {
-        this.sessionKey = sessionKey;
-        return this;
-    }
+	public String getSessionKey() {
+		return this.sessionKey;
+	}
 
-    @Autowired
-    private ActiveUserRepository activeUserRepository;
+	public ValidateActiveUserCommand setSessionKey(final String sessionKey) {
+		this.sessionKey = sessionKey;
+		return this;
+	}
+
+	@Autowired
+	private ActiveUserRepository activeUserRepository;
 }

@@ -24,11 +24,65 @@ import edu.uark.registerapp.models.repositories.EmployeeRepository;
 public class EmployeeSignInCommand implements ResultCommandInterface<Employee> {
 	@Override
 	public Employee execute() {
-        //this.validation();
-        
+		this.validateProperties();
+
 		return new Employee(this.SignInEmployee());
-    }
-    // Properties
+	}
+
+	// Helper methods
+	private void validateProperties() {
+		if (StringUtils.isBlank(this.employeeSignIn.getEmployeeId())) {
+			throw new UnprocessableEntityException("employee ID");
+		}
+		try {
+			Integer.parseInt(this.employeeSignIn.getEmployeeId());
+		} catch (final NumberFormatException e) {
+			throw new UnprocessableEntityException("employee ID");
+		}
+		if (StringUtils.isBlank(this.employeeSignIn.getPassword())) {
+			throw new UnprocessableEntityException("password");
+		}
+	}
+
+	@Transactional
+	private EmployeeEntity SignInEmployee() {
+		final Optional<EmployeeEntity> employeeEntity =
+			this.employeeRepository.findByEmployeeId(
+				Integer.parseInt(this.employeeSignIn.getEmployeeId()));
+
+		if (!employeeEntity.isPresent()
+			|| !Arrays.equals(
+				employeeEntity.get().getPassword(),
+				EmployeeHelper.hashPassword(this.employeeSignIn.getPassword()))
+		) {
+
+			throw new UnauthorizedException();
+		}
+
+		final Optional<ActiveUserEntity> activeUserEntity =
+			this.activeUserRepository
+				.findByEmployeeId(employeeEntity.get().getId());
+
+		if (!activeUserEntity.isPresent()) {
+			this.activeUserRepository.save(
+					(new ActiveUserEntity())
+						.setSessionKey(this.sessionId)
+						.setEmployeeId(employeeEntity.get().getId())
+						.setClassification(
+							employeeEntity.get().getClassification())
+						.setName(
+							employeeEntity.get().getFirstName()
+								.concat(" ")
+								.concat(employeeEntity.get().getLastName())));
+		} else {
+			this.activeUserRepository.save(
+				activeUserEntity.get().setSessionKey(this.sessionId));
+		}
+
+		return employeeEntity.get();
+	}
+
+	// Properties
 	private EmployeeSignIn employeeSignIn;
 	public EmployeeSignIn getEmployeeSignIn() {
 		return this.employeeSignIn;
@@ -46,36 +100,7 @@ public class EmployeeSignInCommand implements ResultCommandInterface<Employee> {
 		this.sessionId = sessionId;
 		return this;
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // Helper methods
-    /*private void validation(){
-        if((this.employeeSignIn.getEmployeeId().isBlank())||(StringUtils.isNumeric(this.employeeSignIn.getEmployeeId()))){
-            throw new UnprocessableEntityException("Employee ID");
-        }
-        if(this.employeeSignIn.getPassword().isBlank()){
-            throw new UnprocessableEntityException("Password");
-        }
-    }*/
-	@Transactional
-	private EmployeeEntity SignInEmployee() {
-		final Optional<EmployeeEntity> employeeEntity = this.employeeRepository.findByEmployeeId(Integer.parseInt(this.employeeSignIn.getEmployeeId()));
-		if (!employeeEntity.isPresent()|| !Arrays.equals(employeeEntity.get().getPassword(),EmployeeHelper.hashPassword(this.employeeSignIn.getPassword()))) {
-			throw new UnauthorizedException();
-		}
-		final Optional<ActiveUserEntity> activeUserEntity =this.activeUserRepository.findByEmployeeId(employeeEntity.get().getId());
-		if (!activeUserEntity.isPresent()) {
-			this.activeUserRepository.save(
-					(new ActiveUserEntity())
-						.setSessionKey(this.sessionId)
-						.setEmployeeId(employeeEntity.get().getId())
-						.setClassification(employeeEntity.get().getClassification())
-						.setName(employeeEntity.get().getFirstName().concat(" ").concat(employeeEntity.get().getLastName())));
-		} else {
-			this.activeUserRepository.save(activeUserEntity.get().setSessionKey(this.sessionId));
-		}
-		return employeeEntity.get();
-	}
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	@Autowired
