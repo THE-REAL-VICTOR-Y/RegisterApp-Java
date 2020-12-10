@@ -98,4 +98,3 @@ public class EmployeeRestController extends BaseRestController {
 	@Autowired
 	private ActiveEmployeeExistsQuery activeEmployeeExistsQuery;
 }
-
