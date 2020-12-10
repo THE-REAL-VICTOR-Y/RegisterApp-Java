@@ -32,3 +32,5 @@ public class SignInRestController extends BaseRestController {
 	@Autowired
 	private ActiveUserDeleteCommand activeUserDeleteCommand;
 }
+
+

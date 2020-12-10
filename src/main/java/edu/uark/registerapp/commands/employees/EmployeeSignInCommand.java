@@ -106,3 +106,4 @@ public class EmployeeSignInCommand implements ResultCommandInterface<Employee> {
 	@Autowired
 	private ActiveUserRepository activeUserRepository;
 }
+

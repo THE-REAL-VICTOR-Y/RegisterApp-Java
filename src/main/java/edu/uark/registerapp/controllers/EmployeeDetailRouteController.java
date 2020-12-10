@@ -143,3 +143,4 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 	@Autowired
 	private ActiveEmployeeExistsQuery activeEmployeeExistsQuery;
 }
+
