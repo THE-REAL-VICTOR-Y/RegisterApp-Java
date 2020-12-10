@@ -5,11 +5,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	getViewProductsActionElement().addEventListener(
 		"click",
-		() => { window.location.assign("https://victor-y-app.herokuapp.com/productListing"); });
+		() => { window.location.assign("/productListing"); });
 
 	getCreateEmployeeActionElement().addEventListener(
 		"click",
-		() => { window.location.assign("https://victor-y-app.herokuapp.com/employeeDetail"); });
+		() => { window.location.assign("/employeeDetail"); });
 
 	getProductSalesReportActionElement().addEventListener(
 		"click",
@@ -41,4 +41,3 @@ function getCashierSalesReportActionElement() {
 	return document.getElementById("cashierSalesReportButton");
 }
 // End getters and setters
-
