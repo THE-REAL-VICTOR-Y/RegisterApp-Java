@@ -10,20 +10,7 @@ import edu.uark.registerapp.commands.employees.helpers.EmployeeHelper;
 import edu.uark.registerapp.models.entities.EmployeeEntity;
 
 public class Employee extends ApiResponse {
-	private UUID id;
-	private String employeeID;
-	private String firstName;
-	private String lastName;
-	private String password;
-	private boolean isActive;
-	private int classification;
-	private UUID managerID;
-	private String createdOn;
-	private boolean isInitialEmployee;
-
-
-
-
+    private UUID id;
     public UUID getId() {
     	return this.id;
     }
@@ -32,18 +19,20 @@ public class Employee extends ApiResponse {
 		return this;
 	}
 
+	private String employeeId;
 	public String getEmployeeId() {
-		return this.employeeID;
+		return this.employeeId;
 	}
-	public Employee setEmployeeId(final int employeeID) {
-		this.employeeID = EmployeeHelper.padEmployeeId(employeeID);
+	public Employee setEmployeeId(final int employeeId) {
+		this.employeeId = EmployeeHelper.padEmployeeId(employeeId);
 		return this;
 	}
-	public Employee setEmployeeId(final String employeeID) {
-		this.employeeID = employeeID;
+	public Employee setEmployeeId(final String employeeId) {
+		this.employeeId = employeeId;
 		return this;
 	}
 
+	private String firstName;
 	public String getFirstName() {
 		return this.firstName;
 	}
@@ -52,6 +41,7 @@ public class Employee extends ApiResponse {
 		return this;
 	}
 
+	private String lastName;
 	public String getLastName() {
 		return this.lastName;
 	}
@@ -60,6 +50,7 @@ public class Employee extends ApiResponse {
 		return this;
 	}
 
+	private String password;
 	public String getPassword() {
 		return this.password;
 	}
@@ -68,6 +59,7 @@ public class Employee extends ApiResponse {
 		return this;
 	}
 
+	private boolean isActive;
 	public boolean getIsActive() {
 		return this.isActive;
 	}
@@ -76,6 +68,7 @@ public class Employee extends ApiResponse {
 		return this;
 	}
 
+	private int classification;
 	public int getClassification() {
 		return this.classification;
 	}
@@ -84,14 +77,16 @@ public class Employee extends ApiResponse {
 		return this;
 	}
 
+	private UUID managerId;
 	public UUID getManagerId() {
-		return this.managerID;
+		return this.managerId;
 	}
-	public Employee setManagerId(final UUID managerID) {
-		this.managerID = managerID;
+	public Employee setManagerId(final UUID managerId) {
+		this.managerId = managerId;
 		return this;
 	}
 
+	private String createdOn;
 	public String getCreatedOn() {
 		return this.createdOn;
 	}
@@ -106,6 +101,7 @@ public class Employee extends ApiResponse {
 		return this;
 	}
 
+	private boolean isInitialEmployee;
 	public boolean getIsInitialEmployee() {
 		return this.isInitialEmployee;
 	}
@@ -121,11 +117,11 @@ public class Employee extends ApiResponse {
 		this.id = new UUID(0, 0);
 		this.classification = -1;
 		this.isInitialEmployee = false;
-		this.managerID = new UUID(0, 0);
+		this.managerId = new UUID(0, 0);
 		this.lastName = StringUtils.EMPTY;
 		this.password = StringUtils.EMPTY;
 		this.firstName = StringUtils.EMPTY;
-		this.employeeID = StringUtils.EMPTY;
+		this.employeeId = StringUtils.EMPTY;
 
 		this.setCreatedOn(LocalDateTime.now());
 	}
@@ -139,9 +135,9 @@ public class Employee extends ApiResponse {
 		this.isActive = employeeEntity.getIsActive();
 		this.lastName = employeeEntity.getLastName();
 		this.firstName = employeeEntity.getFirstName();
-		this.managerID = employeeEntity.getManagerId();
+		this.managerId = employeeEntity.getManagerId();
 		this.classification = employeeEntity.getClassification();
-		this.employeeID =
+		this.employeeId =
 			EmployeeHelper.padEmployeeId(employeeEntity.getEmployeeId());
 
 		this.setCreatedOn(employeeEntity.getCreatedOn());
