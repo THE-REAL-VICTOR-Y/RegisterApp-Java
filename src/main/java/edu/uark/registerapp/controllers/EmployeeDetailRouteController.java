@@ -14,14 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.uark.registerapp.commands.employees.ActiveEmployeeExistsQuery;
-import edu.uark.registerapp.commands.employees.EmployeeQuery;
 import edu.uark.registerapp.commands.exceptions.NotFoundException;
 import edu.uark.registerapp.controllers.enums.ViewModelNames;
 import edu.uark.registerapp.controllers.enums.ViewNames;
 import edu.uark.registerapp.models.api.Employee;
-import edu.uark.registerapp.models.api.EmployeeType;
 import edu.uark.registerapp.models.entities.ActiveUserEntity;
+import edu.uark.registerapp.commands.employees.ActiveEmployeeExistsQuery;
 
 @Controller
 @RequestMapping(value = "/employeeDetail")
@@ -32,20 +30,30 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 		final HttpServletRequest request
 	) {
 
-		final boolean activeUserExists = this.activeUserExists();
+		// TODO: Logic to determine if the user associated with the current session
+		//  is able to create an employee
 
-		if (activeUserExists) {
-			final Optional<ActiveUserEntity> activeUserEntity =
-				this.getCurrentUser(request);
 
-			if (!activeUserEntity.isPresent()) {
-				return this.buildInvalidSessionResponse();
-			} else if (!this.isElevatedUser(activeUserEntity.get())) {
-				return this.buildNoPermissionsResponse();
-			}
+		boolean activeUserExists = this.activeUserExists();
+
+		if(activeUserExists) //if user exits
+		{
+			//create optional instance to prevent nosuchelement exception
+			final Optional<ActiveUserEntity> activeUserEntity = this.getCurrentUser(request);
+
+				if(!this.isElevatedUser(activeUserEntity.get()))
+					{
+						return this.buildNoPermissionsResponse();
+					}
+				else if(!activeUserEntity.isPresent())
+				{
+					return this.buildInvalidSessionResponse();
+				}
 		}
+			
 
-		return this.buildStartResponse(!activeUserExists, queryParameters);
+
+		return new ModelAndView(ViewModelNames.EMPLOYEE_TYPES.getValue());
 	}
 
 	@RequestMapping(value = "/{employeeId}", method = RequestMethod.GET)
@@ -64,82 +72,27 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 			return this.buildNoPermissionsResponse();
 		}
 
-		return this.buildStartResponse(employeeId, queryParameters);
+		// TODO: Query the employee details using the request route parameter
+		// TODO: Serve up the page
+		return new ModelAndView(ViewModelNames.EMPLOYEE_TYPES.getValue());
 	}
 
 	// Helper methods
 	private boolean activeUserExists() {
-		try {
+		// TODO: Helper method to determine if any active users Exist
+		try
+		{
 			this.activeEmployeeExistsQuery.execute();
 			return true;
-		} catch (final NotFoundException e) {
-			return false;
 		}
-	}
-
-	private ModelAndView buildStartResponse(
-		final boolean isInitialEmployee,
-		final Map<String, String> queryParameters
-	) {
-
-		return this.buildStartResponse(
-			isInitialEmployee,
-			(new UUID(0, 0)),
-			queryParameters);
-	}
-
-	private ModelAndView buildStartResponse(
-		final UUID employeeId,
-		final Map<String, String> queryParameters
-	) {
-
-		return this.buildStartResponse(false, employeeId, queryParameters);
-	}
-
-	private ModelAndView buildStartResponse(
-		final boolean isInitialEmployee,
-		final UUID employeeId,
-		final Map<String, String> queryParameters
-	) {
-
-		ModelAndView modelAndView =
-			this.setErrorMessageFromQueryString(
-				new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName()),
-				queryParameters);
-
-		if (employeeId.equals(new UUID(0, 0))) {
-			modelAndView.addObject(
-				ViewModelNames.EMPLOYEE.getValue(),
-				(new Employee()).setIsInitialEmployee(isInitialEmployee));
-		} else {
-			try {
-				modelAndView.addObject(
-					ViewModelNames.EMPLOYEE.getValue(),
-					this.employeeQuery
-						.setEmployeeId(employeeId)
-						.execute()
-						.setIsInitialEmployee(isInitialEmployee));
-			} catch (final Exception e) {
-				modelAndView.addObject(
-					ViewModelNames.ERROR_MESSAGE.getValue(),
-					e.getMessage());
-				modelAndView.addObject(
-					ViewModelNames.EMPLOYEE.getValue(),
-					(new Employee()).setIsInitialEmployee(isInitialEmployee));
-			}
+		
+		catch(Exception e)
+		{
+			
 		}
-
-		modelAndView.addObject(
-			ViewModelNames.EMPLOYEE_TYPES.getValue(),
-			EmployeeType.allEmployeeTypes());
-
-		return modelAndView;
+		return false;
 	}
 
-	// Properties
-	@Autowired
-	private EmployeeQuery employeeQuery;
-	
 	@Autowired
 	private ActiveEmployeeExistsQuery activeEmployeeExistsQuery;
 }

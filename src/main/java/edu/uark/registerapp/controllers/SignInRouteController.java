@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.uark.registerapp.commands.employees.ActiveEmployeeExistsQuery;
 import edu.uark.registerapp.commands.employees.EmployeeSignInCommand;
-import edu.uark.registerapp.commands.exceptions.NotFoundException;
 import edu.uark.registerapp.controllers.enums.QueryParameterNames;
 import edu.uark.registerapp.controllers.enums.ViewModelNames;
 import edu.uark.registerapp.controllers.enums.ViewNames;
@@ -23,67 +22,58 @@ import edu.uark.registerapp.models.api.EmployeeSignIn;
 @Controller
 @RequestMapping(value = "/")
 public class SignInRouteController extends BaseRouteController {
+	// TODO: Route for initial page load
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView showSignIn(
-		@RequestParam final Map<String, String> queryParameters
-	) {
-
-		try {
-			this.activeEmployeeExistsQuery.execute();
-		} catch (NotFoundException e) {
-			return new ModelAndView(
-				REDIRECT_PREPEND.concat(
-					ViewNames.EMPLOYEE_DETAIL.getRoute()));
-		}
-
-		ModelAndView modelAndView =
-			this.setErrorMessageFromQueryString(
-				new ModelAndView(ViewNames.SIGN_IN.getViewName()),
-				queryParameters);
+	public ModelAndView viewSignIn(@RequestParam final Map< String, String> queryParameters)
+	{
 		
-		if (queryParameters.containsKey(QueryParameterNames.EMPLOYEE_ID.getValue())) {
-			modelAndView.addObject(
-				ViewModelNames.EMPLOYEE_ID.getValue(),
-				queryParameters.get(QueryParameterNames.EMPLOYEE_ID.getValue()));
-		}
+	try 
+	{
+		this.activeEmployeeExistsQuery.execute();
+	} 
+	catch (Exception e) 
+	{
+		//TODO: handle exception
+		return new ModelAndView(REDIRECT_PREPEND.concat(ViewNames.EMPLOYEE_DETAIL.getRoute()));
+	}
 
-		return modelAndView;
+	ModelAndView mav = this.setErrorMessageFromQueryString(new ModelAndView(ViewNames.SIGN_IN.getViewName()), queryParameters);
+
+	if(queryParameters.containsKey(QueryParameterNames.EMPLOYEE_ID.getValue()))
+	{
+		mav.addObject(ViewModelNames.EMPLOYEE_ID.getValue(), queryParameters.get(QueryParameterNames.EMPLOYEE_ID.getValue()));
+	}
+
+		return mav;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public ModelAndView performSignIn(
-		EmployeeSignIn employeeSignIn,
+	public ModelAndView performSignIn( EmployeeSignIn eSignIn,
+		// TODO: Define an object that will represent the sign in request and add it as a parameter here
 		HttpServletRequest request
 	) {
 
-		try {
-			this.employeeSignInCommand
-				.setSessionId(request.getSession().getId())
-				.setEmployeeSignIn(employeeSignIn)
-				.execute();
-		} catch (Exception e) {
-			ModelAndView modelAndView =
-				new ModelAndView(ViewNames.SIGN_IN.getViewName());
+		// TODO: Use the credentials provided in the request body
+		//  and the "id" property of the (HttpServletRequest)request.getSession() variable
+		//  to sign in the user
+		try 
+		{
+			((EmployeeSignInCommand) this.employeeSignInCommand.setSessionId(request.getSession().getId()))
+					.setEmployeeSignIn(eSignIn).execute();
+		}
+		 catch (Exception e) 
+		{
+			ModelAndView mav = new ModelAndView(ViewNames.SIGN_IN.getViewName());
 
-			modelAndView.addObject(
-				ViewModelNames.ERROR_MESSAGE.getValue(),
-				e.getMessage());
-			modelAndView.addObject(
-				ViewModelNames.EMPLOYEE_ID.getValue(),
-				employeeSignIn.getEmployeeId());
-
-			return modelAndView;
+			mav.addObject (ViewModelNames.ERROR_MESSAGE.getValue(), e.getMessage());
+			mav.addObject (ViewModelNames.EMPLOYEE_ID.getValue(), eSignIn.getEmployeeId());
+			return mav;
 		}
 
-		return new ModelAndView(
-			REDIRECT_PREPEND.concat(
-				ViewNames.MAIN_MENU.getRoute()));
+		return new ModelAndView(REDIRECT_PREPEND.concat(ViewNames.MAIN_MENU.getRoute()));
 	}
 
-	// Properties
-	@Autowired
-	private EmployeeSignInCommand employeeSignInCommand;
+	@Autowired private EmployeeSignInCommand employeeSignInCommand;
+	@Autowired private ActiveEmployeeExistsQuery activeEmployeeExistsQuery;
 
-	@Autowired
-	private ActiveEmployeeExistsQuery activeEmployeeExistsQuery;
 }
