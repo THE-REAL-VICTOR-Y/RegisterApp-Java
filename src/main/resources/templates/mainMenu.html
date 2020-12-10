@@ -21,17 +21,20 @@
 			<h4 id="errorMessage" class="error-message" th:text="${errorMessage}"></h4>
 		</div>
 
-		<!-- TODO: Add the various action button elements -->
-		<button id="start_transaction" type="button">Start Transaction</button>
-		<br><br>
-		<button id="view_products" type="button">View Products</button>
-		<br><br>
-		<button id="create_employee" type="button">Create Employee</button>
-		<br><br>
-		<button id="sales_report" type="button">Sales Report</button>
-		<br><br>
-		<button id="cashier_report" type="button">Cashier Report</button>
-		
+		<div class="mainMenuActionsWrapper">
+			<br />
+			<button id="startTransactionButton" type="button" class="action" title="Functionality Not Available">Start Transaction</button>
+			<br /><br />
+			<button id="viewProductsButton" type="button" class="action">View Products</button>
+			<div th:class="not ${isElevatedUser} ? hidden : ''">
+				<br />
+				<button id="createEmployeeButton" type="button" class="action">Create Employee</button>
+				<br /><br />
+				<button id="productSalesReportButton" type="button" class="action" title="Functionality Not Available">Product Sales</button>
+				<br /><br />
+				<button id="cashierSalesReportButton" type="button" class="action" title="Functionality Not Available">Cashier Sales</button>
+			</div>
+		</div>
 	</div>
 
 	<div class="hidden">

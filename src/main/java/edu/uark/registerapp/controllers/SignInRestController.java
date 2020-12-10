@@ -15,15 +15,20 @@ import edu.uark.registerapp.models.api.ApiResponse;
 @RestController
 @RequestMapping(value = "/api")
 public class SignInRestController extends BaseRestController {
-	@RequestMapping(value = "/signOut", method = RequestMethod.DELETE)
-	public @ResponseBody ApiResponse removeActiveUser(final HttpServletRequest request) {
+	@RequestMapping(value="/signOut", method = RequestMethod.DELETE)
+	public @ResponseBody ApiResponse removeActiveUser(
+		final HttpServletRequest request
+	) {
 
-		// TODO: Sign out the user associated with request.getSession().getId()
-		this.ActiveuserDeleteCommand.setSessionKey(request.getSession().getId()).execute();
+		this.activeUserDeleteCommand
+			.setSessionKey(request.getSession().getId())
+			.execute();
 
-		return (new ApiResponse()).setRedirectUrl(ViewNames.SIGN_IN.getRoute());
+		return (new ApiResponse())
+			.setRedirectUrl(ViewNames.SIGN_IN.getRoute());
 	}
 
+	// Properties
 	@Autowired
-	private ActiveUserDeleteCommand ActiveuserDeleteCommand;
+	private ActiveUserDeleteCommand activeUserDeleteCommand;
 }
