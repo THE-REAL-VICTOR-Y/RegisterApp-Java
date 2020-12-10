@@ -5,11 +5,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	getViewProductsActionElement().addEventListener(
 		"click",
-		() => { window.location.assign("/productListing"); });
+		() => { window.location.assign("https://victor-y-app.herokuapp.com/productListing"); });
 
 	getCreateEmployeeActionElement().addEventListener(
 		"click",
-		() => { window.location.assign("/employeeDetail"); });
+		() => { window.location.assign("https://victor-y-app.herokuapp.com/employeeDetail"); });
 
 	getProductSalesReportActionElement().addEventListener(
 		"click",
