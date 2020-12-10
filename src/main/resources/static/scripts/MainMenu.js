@@ -41,4 +41,3 @@ function getCashierSalesReportActionElement() {
 	return document.getElementById("cashierSalesReportButton");
 }
 // End getters and setters
-

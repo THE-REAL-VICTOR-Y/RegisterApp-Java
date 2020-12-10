@@ -87,4 +87,3 @@ public class SignInRouteController extends BaseRouteController {
 	@Autowired
 	private ActiveEmployeeExistsQuery activeEmployeeExistsQuery;
 }
-

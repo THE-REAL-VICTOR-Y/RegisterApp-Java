@@ -31,5 +31,4 @@ public class EmployeeHelper {
 	}
 	
 	private static final int EMPLOYEE_ID_MAXIMUM_LENGTH = 5;
-
 }

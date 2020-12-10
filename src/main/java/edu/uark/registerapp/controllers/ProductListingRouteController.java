@@ -62,5 +62,3 @@ public class ProductListingRouteController extends BaseRouteController {
 	@Autowired
 	private ProductsQuery productsQuery;
 }
-
-
