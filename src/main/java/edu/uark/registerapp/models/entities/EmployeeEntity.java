@@ -108,7 +108,6 @@ public class EmployeeEntity {
 		this.managerId = managerId;
 		return this;
 	}
-
 	@Column(name = "createdon", insertable = false, updatable = false)
 	@Generated(GenerationTime.INSERT)
 	private LocalDateTime createdOn;
