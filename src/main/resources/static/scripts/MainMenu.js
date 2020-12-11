@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	getViewProductsActionElement().addEventListener(
 		"click",
-		() => { window.location.assign("/productListing"); });
+		() => { window.location.assign("productListing"); });
 
 	getCreateEmployeeActionElement().addEventListener(
 		"click",
